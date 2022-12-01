@@ -1,0 +1,213 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://1.png" type="Texture" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://2.png" type="Texture" id=3]
+[ext_resource path="res://ParallaxBackground.gd" type="Script" id=4]
+[ext_resource path="res://Main.gd" type="Script" id=5]
+[ext_resource path="res://BarrelSpawner.gd" type="Script" id=6]
+[ext_resource path="res://BirdSpawner.gd" type="Script" id=7]
+[ext_resource path="res://BarrierZone.gd" type="Script" id=8]
+[ext_resource path="res://3.png" type="Texture" id=9]
+[ext_resource path="res://4.png" type="Texture" id=10]
+[ext_resource path="res://StartTextColorRect.gd" type="Script" id=11]
+[ext_resource path="res://Kenney Pixel Square.ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://Battle_-_Hold_The_Line.ogg" type="AudioStream" id=13]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 854, 179.5 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 861, 154.5 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 193, 585 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 196, 588 )
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=6]
+font_data = ExtResource( 12 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scale = Vector2( 2, 2 )
+transform = Transform2D( 2, 0, 0, 2, 0, 0 )
+script = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground"]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.3, 1 )
+motion_mirroring = Vector2( 576, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 3 )
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 576, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource( 9 )
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.8, 1 )
+motion_mirroring = Vector2( 576, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+texture = ExtResource( 10 )
+centered = false
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 512, 300 )
+
+[node name="BarrelSpawner" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[node name="BarrelPos1" type="Position2D" parent="BarrelSpawner" groups=["barrel_positions"]]
+position = Vector2( 1050, 250 )
+
+[node name="BarrelPos2" type="Position2D" parent="BarrelSpawner" groups=["barrel_positions"]]
+position = Vector2( 1050, 350 )
+
+[node name="BarrelPos3" type="Position2D" parent="BarrelSpawner" groups=["barrel_positions"]]
+position = Vector2( 1050, 450 )
+
+[node name="BarrelPos4" type="Position2D" parent="BarrelSpawner" groups=["barrel_positions"]]
+position = Vector2( 1050, 550 )
+
+[node name="BarrelPos5" type="Position2D" parent="BarrelSpawner" groups=["barrel_positions"]]
+position = Vector2( -50, 550 )
+
+[node name="BarrelPos6" type="Position2D" parent="BarrelSpawner" groups=["barrel_positions"]]
+position = Vector2( -50, 450 )
+
+[node name="BarrelPos7" type="Position2D" parent="BarrelSpawner" groups=["barrel_positions"]]
+position = Vector2( -50, 350 )
+
+[node name="BarrelPos8" type="Position2D" parent="BarrelSpawner" groups=["barrel_positions"]]
+position = Vector2( -50, 250 )
+
+[node name="BarrelTimer" type="Timer" parent="BarrelSpawner"]
+wait_time = 2.0
+
+[node name="BirdSpawner" type="Node" parent="."]
+script = ExtResource( 7 )
+
+[node name="BirdPos1" type="Position2D" parent="BirdSpawner" groups=["bird_positions"]]
+position = Vector2( -50, 50 )
+
+[node name="BirdPos2" type="Position2D" parent="BirdSpawner" groups=["bird_positions"]]
+position = Vector2( 1050, 50 )
+
+[node name="BirdTimer" type="Timer" parent="BirdSpawner"]
+
+[node name="BarrierZone" type="Area2D" parent="." groups=["barriers"]]
+position = Vector2( 500, 550 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierZone"]
+position = Vector2( 15, 169.5 )
+shape = SubResource( 2 )
+
+[node name="BarrierZone3" type="Area2D" parent="." groups=["barriers"]]
+position = Vector2( 500, 25 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 8 )
+barrier_direction = Vector2( 0, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierZone3"]
+position = Vector2( 19, -151.5 )
+shape = SubResource( 4 )
+
+[node name="BarrierZone2" type="Area2D" parent="." groups=["barriers"]]
+position = Vector2( 50, 300 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 8 )
+barrier_direction = Vector2( 1, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierZone2"]
+position = Vector2( -199, 6 )
+shape = SubResource( 3 )
+
+[node name="BarrierZone4" type="Area2D" parent="." groups=["barriers"]]
+position = Vector2( 975, 300 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 8 )
+barrier_direction = Vector2( -1, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarrierZone4"]
+position = Vector2( 195, 11 )
+shape = SubResource( 5 )
+
+[node name="ScoreLabel" type="Label" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 170.0
+margin_bottom = 97.0
+custom_fonts/font = SubResource( 7 )
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTextColorRect" type="ColorRect" parent="."]
+show_behind_parent = true
+margin_left = 190.0
+margin_top = 96.0
+margin_right = 833.0
+margin_bottom = 251.0
+color = Color( 0.501961, 0.47451, 0.47451, 1 )
+script = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="StartTextColorRect"]
+margin_top = 8.0
+margin_right = 643.0
+margin_bottom = 140.0
+custom_fonts/font = SubResource( 8 )
+text = "Hold a direction (W/Up, A/Left, D/Right) to build up wind power
+and release the button to send it!
+
+Buid up score by keeping your hot air balloon safe from
+red barrels and pairs of killer birds (and their stones)!"
+align = 1
+
+[node name="Timer" type="Timer" parent="StartTextColorRect"]
+
+[node name="PlayAgainLabel" type="Label" parent="."]
+visible = false
+margin_top = 380.0
+margin_right = 1025.0
+margin_bottom = 415.0
+rect_min_size = Vector2( 1000, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "Press any movement input to play again."
+align = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -7.0
+autoplay = true
+
+[connection signal="timeout" from="BarrelSpawner/BarrelTimer" to="BarrelSpawner" method="_on_BarrelTimer_timeout"]
+[connection signal="timeout" from="BirdSpawner/BirdTimer" to="BirdSpawner" method="_on_BirdTimer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
+[connection signal="timeout" from="StartTextColorRect/Timer" to="StartTextColorRect" method="_on_Timer_timeout"]
